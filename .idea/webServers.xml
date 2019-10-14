@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="d513a557-cf55-4a93-a1a9-2bc3154c3e35" name="docker" url="http://0.0.0.0">
-        <fileTransfer host="0.0.0.0" port="21">
+        <fileTransfer host="0.0.0.0" port="21" rootFolder="/public">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

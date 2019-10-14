@@ -10,11 +10,6 @@
       <phpcs_by_interpreter interpreter_id="ababed78-f1f1-4780-8aea-0c693209c89b" standards="MySource;PEAR;PSR1;PSR12;PSR2;Squiz;Zend" tool_path="/home/laradock/.composer/vendor/bin/phpcs" />
     </phpcs_settings>
   </component>
-  <component name="PhpIncludePathManager">
-    <include_path>
-      <path value="opt/project" />
-    </include_path>
-  </component>
   <component name="PhpInterpreters">
     <interpreters>
       <interpreter id="7dfad06c-167c-4367-b8a1-1f876d64f868" name="docker-test_php-fpm:latest" home="docker://DATA" debugger_id="php.debugger.XDebug">
