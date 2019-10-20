@@ -17,9 +17,6 @@ services:
       - php-fpm
     volumes:
       - ./:/var/www/html
-    depends_on:
-      - php-fpm
-      - mysql
     networks:
       - laravel
 
@@ -31,7 +28,6 @@ services:
       - ./:/var/www/html
     links:
       - mysql
-      - node
     networks:
       - laravel
 
