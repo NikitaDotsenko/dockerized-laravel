@@ -2,6 +2,9 @@ version: "3"
 
 volumes:
   my-db:
+networks:
+  laravel:
+    driver: bridge
 
 services:
   nginx:
@@ -14,6 +17,11 @@ services:
       - php-fpm
     volumes:
       - ./:/var/www/html
+    depends_on:
+      - php-fpm
+      - mysql
+    networks:
+      - laravel
 
   php-fpm:
     build:
@@ -23,6 +31,10 @@ services:
       - ./:/var/www/html
     links:
       - mysql
+      - node
+    networks:
+      - laravel
+
   mysql:
     image: mysql:5.7
     ports:
@@ -34,21 +46,20 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - my-db:/var/lib/mysql
-  ftpd_server:
-    image: stilliard/pure-ftpd:hardened
-    container_name: pure-ftpd
-    ports:
-      - "21:21"
-      - "30000-30009:30000-30009"
-    volumes: # remember to replace /folder_on_disk/ with the path to where you want to store the files on the host machine
-      - "./:/var/www/html"
-    # uncomment for ssl/tls, see https://github.com/stilliard/docker-pure-ftpd#tls
-    #      - "/folder_on_disk/ssl:/etc/ssl/private/"
+    networks:
+      - laravel
+
+  node:
+    image: node:8.16.1
+    entrypoint:
+      - /bin/bash
+    volumes:
+      - ./:/var/www/html:cached
+    working_dir: /var/www/html
+    tty: true
+    env_file:
+      - .env
     environment:
-      PUBLICHOST: "0.0.0.0"
-      FTP_USER_NAME: root
-      FTP_USER_PASS: root
-      FTP_USER_HOME: /var
-    # also for ssl/tls:
-    #      ADDED_FLAGS: "--tls=2"
-    restart: always
+      - HOME=/var/www/html
+    networks:
+      - laravel

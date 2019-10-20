@@ -3,6 +3,8 @@ FROM php:7.3-fpm
 RUN apt-get update \
 && docker-php-ext-install pdo pdo_mysql
 
+ADD /docker/php-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
+
 ###########################################################################
 # xDebug:
 ###########################################################################
