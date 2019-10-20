@@ -2,9 +2,6 @@ version: "3"
 
 volumes:
   my-db:
-networks:
-  laravel:
-    driver: bridge
 
 services:
   nginx:
@@ -17,8 +14,7 @@ services:
       - php-fpm
     volumes:
       - ./:/var/www/html
-    networks:
-      - laravel
+
 
   php-fpm:
     build:
@@ -28,8 +24,7 @@ services:
       - ./:/var/www/html
     links:
       - mysql
-    networks:
-      - laravel
+
 
   mysql:
     image: mysql:5.7
@@ -42,8 +37,6 @@ services:
       - MYSQL_ROOT_PASSWORD=root
     volumes:
       - my-db:/var/lib/mysql
-    networks:
-      - laravel
 
   node:
     image: node:8.16.1
@@ -57,5 +50,3 @@ services:
       - .env
     environment:
       - HOME=/var/www/html
-    networks:
-      - laravel
