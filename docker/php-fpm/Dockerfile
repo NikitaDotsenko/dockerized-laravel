@@ -1,9 +1,10 @@
 FROM php:7.3-fpm
 
+RUN usermod -u 1000 www-data
+
 RUN apt-get update \
 && docker-php-ext-install pdo pdo_mysql
-
-ADD /docker/php-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
+RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 ###########################################################################
 # xDebug:
@@ -28,6 +29,4 @@ RUN sed -i "s/xdebug.remote_autostart=0/xdebug.remote_autostart=1/" /usr/local/e
     sed -i "s/xdebug.cli_color=0/xdebug.cli_color=1/" /usr/local/etc/php/conf.d/xdebug.ini
 
 COPY /docker/php-fpm/xdebug.ini /etc/php/7.3/mods-available/xdebug.ini
-
-RUN usermod -u 1000 www-data
 
