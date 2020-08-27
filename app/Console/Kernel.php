@@ -24,8 +24,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-//         $schedule->command('inspire')
-//                  ->everyMinute()->emailOutputTo('indahazzard@gmail.com');
+         $schedule->command('inspire')
+                  ->everyMinute()->appendOutputTo(storage_path('logs/cron.log'));
     }
 
     /**

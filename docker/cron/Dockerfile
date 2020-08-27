@@ -7,7 +7,9 @@ RUN apt-get update \
 
 ADD /docker/php-fpm/php.ini /usr/local/etc/php/conf.d/php.ini
 
-ADD /docker/cron/scheduler /etc/cron.d/scheduler
+RUN touch /var/www/html/storage/logs/cron.log
+COPY docker/cron/entrypoint.sh /opt/bin/entrypoint.sh
+RUN chmod +x /opt/bin/entrypoint.sh
 
-RUN crontab /etc/cron.d/scheduler
+CMD ["/opt/bin/entrypoint.sh"]
 
